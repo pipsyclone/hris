@@ -113,5 +113,4 @@ window.addEventListener('resize', checkMobile);">
 </body>
 
 @stack('scripts')
-
 </html>

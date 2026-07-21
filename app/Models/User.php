@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -46,5 +47,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Methods
+    public function hasRoles(array|string $role): bool
+    {
+        return in_array($this->role_id, (array) $role);
+    }
+
+    // Relationships
+    public function role()
+    {
+        return $this->belongsTo(Roles::class, 'role_id');
     }
 }

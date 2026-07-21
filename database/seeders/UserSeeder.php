@@ -15,13 +15,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $superadmin = Roles::where('slug', 'superadmin')->first();
+
         User::firstOrCreate(
             ['email' => 'superadmin@example.com'],
             [
                 'name' => 'Superadmin', 
                 'username' => 'superadmin',
                 'email' => 'superadmin@example.com',
-                'password' => Hash::make('123')
+                'password' => Hash::make('123'),
+                'role_id' => $superadmin->id,
             ]
         );
     }
