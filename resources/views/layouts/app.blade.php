@@ -5,7 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $title ?? 'Dashboard' }} | TailAdmin - Laravel Tailwind CSS Admin Dashboard Template</title>
+        <title>{{ $title }}</title>
+
+        {{-- Fontawesome --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+
+        {{-- Sweetalert2 --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <!-- Toastr CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+        <!-- Toastr JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -116,11 +131,13 @@
                     'xl:ml-[90px]': !$store.sidebar.isExpanded && !$store.sidebar.isHovered,
                     'ml-0': $store.sidebar.isMobileOpen
                 }">
+
                 <!-- app header start -->
                 @include('layouts.app-header')
+
                 <!-- app header end -->
                 <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
-                    @yield('content')
+                    {{ $slot }}
                 </div>
             </div>
 

@@ -9,7 +9,7 @@
                 </div>
                 <div class="order-3 xl:order-2">
                     <h4 class="mb-2 text-center text-lg font-semibold text-gray-800 xl:text-left dark:text-white/90">
-                        Musharof Chowdhury
+                        {{ Auth::user()->name ?? 'Jhon Doe' }}
                     </h4>
                     <div class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
                         <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -89,7 +89,7 @@
                     Update your details to keep your profile up-to-date.
                 </p>
             </div>
-            <form class="flex flex-col">
+            <form wire:submit.prevent="savePersonalInfo" class="flex flex-col">
                 <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
                     <div>
                         <h5 class="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
@@ -136,37 +136,9 @@
                         </h5>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                            <div class="col-span-2 lg:col-span-1">
-                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                    First Name
-                                </label>
-                                <input type="text" value="Musharof"
-                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                            </div>
-
-                            <div class="col-span-2 lg:col-span-1">
-                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                    Last Name
-                                </label>
-                                <input type="text" value="Chowdhury"
-                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                            </div>
-
-                            <div class="col-span-2 lg:col-span-1">
-                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                    Email Address
-                                </label>
-                                <input type="text" value="randomuser@pimjo.com"
-                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                            </div>
-
-                            <div class="col-span-2 lg:col-span-1">
-                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                    Phone
-                                </label>
-                                <input type="text" value="+09 363 398 46"
-                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                            </div>
+                            <x-forms.input label="Full Name" name="name" placeholder="Enter your full name" required errorTarget="name" />
+                            <x-forms.input label="Email Address" name="email" placeholder="Enter your email address" required errorTarget="email" />
+                            <x-forms.input label="Phone Number" name="phone" placeholder="Enter your phone number" errorTarget="phone" />
 
                             <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -183,10 +155,13 @@
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         Close
                     </button>
-                    <button @click="saveProfile" type="button"
+                    <x-ui.button 
+                        type="submit"
+                        wire:click="savePersonalInfo"
+                        wire:target="savePersonalInfo"
                         class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
                         Save Changes
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

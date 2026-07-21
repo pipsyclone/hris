@@ -93,6 +93,10 @@
         };
         window.addEventListener('resize', checkMobile);
     ">
+        {{-- preloader --}}
+        <x-common.preloader/>
+        {{-- preloader end --}}
+
         <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
             <div class="relative flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
                 <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">

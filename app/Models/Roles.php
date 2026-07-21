@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Roles extends Model
+class Roles extends BaseModel
 {
     protected $table = 'roles';
     protected $fillable = [

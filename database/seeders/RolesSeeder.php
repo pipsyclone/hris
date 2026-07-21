@@ -66,7 +66,6 @@ class RolesSeeder extends Seeder
                 $key = "{$action}.{$config['resource']}";
 
                 DB::table('permission_action_resources')->insertOrIgnore([
-                    'id'         => (string) Str::uuid(),
                     'permission_id' => $permissionId,
                     'action'     => $action,
                     'resource'   => $config['resource'],

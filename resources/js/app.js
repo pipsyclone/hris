@@ -41,3 +41,35 @@ document.addEventListener('DOMContentLoaded', () => {
         import('./components/calendar-init').then(module => module.calendarInit());
     }
 });
+
+document.addEventListener('alpine:init', () => {
+    window.addEventListener('signout', () => {
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Are you sure you want to logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Logout',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/signout';
+            }
+        });
+    });
+});
+
+document.addEventListener('livewire:init', () => {
+    Livewire.on('notify', ({ type, title, message }) => {
+        toastr.options = {
+            closeButton: false,
+            progressBar: true,
+            newestOnTop: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000,
+        };
+
+        toastr[type](message, title);
+    });
+});

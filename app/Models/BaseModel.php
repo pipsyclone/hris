@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 abstract class BaseModel extends Model
 {
     use HasUuids;
+    public $incrementing = false;
+    protected $keyType = 'string';
 }

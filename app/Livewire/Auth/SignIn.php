@@ -27,10 +27,7 @@ class SignIn extends Component
             ]
         );
 
-        $field = filter_var($this->credential, FILTER_VALIDATE_EMAIL)
-            ? 'email'
-            : 'username';
-
+        $field = filter_var($this->credential, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if (!Auth::attempt(
             [$field => $this->credential, 'password' => $this->password],
             $this->remember
@@ -40,7 +37,7 @@ class SignIn extends Component
         }
 
         session()->regenerate();
-        $this->redirect(route('dashboard'), navigate: true);
+        $this->redirect(route('index'));
     }
 
     public function render()
