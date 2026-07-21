@@ -22,7 +22,31 @@ class JobCandidateSeeder extends Seeder
                 'resume' => 'path/to/resume.pdf',
                 'position' => 1,
                 'status' => 'pending',
-            ]
+            ],
+            [
+                'name' => 'Jane Smith',
+                'email' => 'janesmith@example.com',
+                'phone' => '0987654321',
+                'resume' => 'path/to/resume.pdf',
+                'position' => 2,
+                'status' => 'interviewed',
+            ],
+            [
+                'name' => 'Alice Johnson',
+                'email' => 'alicejohnson@example.com',
+                'phone' => '1122334455',
+                'resume' => 'path/to/resume.pdf',
+                'position' => 3,
+                'status' => 'hired',
+            ],
+            [
+                'name' => 'Bob Brown',
+                'email' => 'bobbrown@example.com',
+                'phone' => '5566778899',
+                'resume' => 'path/to/resume.pdf',
+                'position' => 4,
+                'status' => 'rejected',
+            ],
         ];
 
         JobCandidate::insert($data);
