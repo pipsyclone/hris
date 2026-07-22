@@ -1,30 +1,24 @@
 import './bootstrap';
-import Alpine from 'alpinejs';
 import ApexCharts from 'apexcharts';
 
 // flatpickr
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+
 // FullCalendar
 import { Calendar } from '@fullcalendar/core';
 
-
-
-window.Alpine = Alpine;
+// Jangan import Alpine — Livewire v4 sudah bundle Alpine otomatis
+// Expose library lain ke window seperti biasa
 window.ApexCharts = ApexCharts;
 window.flatpickr = flatpickr;
 window.FullCalendar = Calendar;
 
-Alpine.start();
-
 // Initialize components on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Map imports
     if (document.querySelector('#mapOne')) {
         import('./components/map').then(module => module.initMap());
     }
-
-    // Chart imports
     if (document.querySelector('#chartOne')) {
         import('./components/chart/chart-1').then(module => module.initChartOne());
     }
@@ -43,9 +37,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('#chartThirteen')) {
         import('./components/chart/chart-13').then(module => module.initChartThirteen());
     }
-
-    // Calendar init
     if (document.querySelector('#calendar')) {
         import('./components/calendar-init').then(module => module.calendarInit());
     }
+});
+
+document.addEventListener('alpine:init', () => {
+    window.addEventListener('signout', () => {
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Are you sure you want to logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Logout',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/signout';
+            }
+        });
+    });
+});
+
+document.addEventListener('livewire:init', () => {
+    Livewire.on('notify', ({ type, title, message }) => {
+        toastr.options = {
+            closeButton: false,
+            progressBar: true,
+            newestOnTop: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000,
+        };
+
+        toastr[type](message, title);
+    });
 });

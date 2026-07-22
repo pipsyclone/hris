@@ -33,29 +33,30 @@
 @endphp
 
 <button
-    {{ $attributes->merge(['class' => $classes, 'type' => $attributes->get('type', 'button')]) }}
-    @if($disabled) disabled @endif
+    wire:loading.attr="disabled"
+    {{ $attributes->class($classes)->merge([
+        'type' => $attributes->get('type', 'button'),
+    ]) }}
+    @disabled($disabled)
 >
-    {{-- start icon: priority — named slot 'startIcon' first, then startIcon prop if it's a HtmlString --}}
-    @if (isset($__env) && $slot->isEmpty() === false) @endif
+    <span wire:loading.remove {{ $attributes->has('wire:target') ? 'wire:target='.$attributes->get('wire:target') : '' }}>
+        @if($startIcon)
+            <span class="flex items-center">{!! $startIcon !!}</span>
+        @endif
 
-    @hasSection('startIcon')
-        <span class="flex items-center">
-            @yield('startIcon')
-        </span>
-    @elseif($startIcon)
-        <span class="flex items-center">{!! $startIcon !!}</span>
-    @endif
+        {{ $slot }}
 
-    {{-- main slot --}}
-    {{ $slot }}
+        @if($endIcon)
+            <span class="flex items-center">{!! $endIcon !!}</span>
+        @endif
+    </span>
 
-    {{-- end icon: named slot 'endIcon' first, then endIcon prop --}}
-    @hasSection('endIcon')
-        <span class="flex items-center">
-            @yield('endIcon')
-        </span>
-    @elseif($endIcon)
-        <span class="flex items-center">{!! $endIcon !!}</span>
-    @endif
+    <span
+        wire:loading
+        {{ $attributes->has('wire:target') ? 'wire:target='.$attributes->get('wire:target') : '' }}
+        class="inline-flex items-center gap-2"
+    >
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading...
+    </span>
 </button>
